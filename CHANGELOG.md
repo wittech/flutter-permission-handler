@@ -1,6 +1,20 @@
-## next
+## 3.2.2
 
-* Add support for Androids' "ignore battery optimizations" permission.
+* Fixed problem with dependency on specific version of gradle wrapper on Android.
+
+## 3.2.1+1
+
+* Reverted the update of the 'meta' plugin since Flutter SDK depends on version 1.1.6
+
+## 3.2.1
+
+* Updated dependecy on 'meta' to latest version.
+
+## 3.2.0
+
+* Add support for Androids' "ignore battery optimizations" permission;
+* Improve error logging;
+* Documented support for AndroidX.
 
 ## 3.1.0
 
