@@ -676,27 +676,42 @@ public class PermissionHandlerPlugin implements MethodCallHandler {
 
   @SuppressWarnings("deprecation")
   private boolean isLocationServiceEnabled(Context context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      final LocationManager locationManager = context.getSystemService(LocationManager.class);
-      if (locationManager == null) {
-        return false;
-      }
-
-      return locationManager.isLocationEnabled();
-    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-      final int locationMode;
-
+    int locationMode = 0;
+    String locationProviders;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       try {
         locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
       } catch (Settings.SettingNotFoundException e) {
         e.printStackTrace();
         return false;
       }
-
       return locationMode != Settings.Secure.LOCATION_MODE_OFF;
     } else {
-      final String locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+      locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
       return !TextUtils.isEmpty(locationProviders);
     }
+
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//      final LocationManager locationManager = context.getSystemService(LocationManager.class);
+//      if (locationManager == null) {
+//        return false;
+//      }
+//
+//      return locationManager.isLocationEnabled();
+//    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//      final int locationMode;
+//
+//      try {
+//        locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+//      } catch (Settings.SettingNotFoundException e) {
+//        e.printStackTrace();
+//        return false;
+//      }
+//
+//      return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+//    } else {
+//      final String locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+//      return !TextUtils.isEmpty(locationProviders);
+//    }
   }
 }
